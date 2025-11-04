@@ -1,0 +1,67 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.env
+
+# Conda envs and caches
+anaconda3/
+envs/
+__conda_extracted__/
+
+# VS Code
+.vscode/
+
+# IDEs
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Python packaging files
+.python-version
+*.egg
+*.eggs
+
+# Pytest
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary / backup files
+~$*
+*.log
+
+# OneDrive / Windows temp
+Desktop.ini
+
+# Local environment settings
+.env.local
+.env.*.local
+
+# Node / JS
+node_modules/
+package-lock.json
+
+# Distribution artifacts
+*.tar.gz
+*.whl
