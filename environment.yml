@@ -1,0 +1,14 @@
+name: cs531_py311
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11.13
+  - numpy
+  - requests
+  - mutagen
+  - pip
+# If you need to install additional pip-only packages, add them under the pip: section.
+# Example:
+#  - pip:
+#    - somepippackage==1.2.3

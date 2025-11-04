@@ -5,6 +5,7 @@ import tkinter as tk
 from behavior import *
 import json
 from mutagen.mp3 import MP3
+import threading
 import requests
 import time
 import base64
@@ -50,25 +51,26 @@ class Misty:
         thread_behavior.start()
 
     def sendAndPlayAudio(self, filename):
+        # Read file and send base64-encoded string payload (JSON serializable)
         try:
-            file = open(filename, 'rb')
+            with open(filename, 'rb') as f:
+                raw = f.read()
         except IOError:
             print('Failed to open file', filename)
             return
-        # Since the filename is an absolute path to the file,
-        # split it based on '/' and only use the last index of
-        # split for the filename to be stored on Misty.
-        splits = filename.split('/')
 
-        # Data -> This must be a base64 encoding of the audio file.
-        # Immediately Apply -> Do you want to instantly play the file?
-        # Overwrite Existing -> Do you want to replace the current stored file if it exists?
-        json = {'Data': base64.b64encode(file.read()),
-                'FileName': splits[len(splits)-1],
-                'ImmediatelyApply': True,
-                'OverwriteExisting': True}
-        requests.post('http://'+self.ip+'/api/audio', json=json)
-        file.close()
+        # Use os.path.basename for portability and decode base64 to str
+        fname = os.path.basename(filename)
+        b64data = base64.b64encode(raw).decode('ascii')
+
+        payload = {
+            'Data': b64data,
+            'FileName': fname,
+            'ImmediatelyApply': True,
+            'OverwriteExisting': True
+        }
+
+        requests.post('http://'+self.ip+'/api/audio', json=payload)
 
     def updateBlinkMap(self):
         requests.post('http://'+self.ip+'/api/blink/settings',
